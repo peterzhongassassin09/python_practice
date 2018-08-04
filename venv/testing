@@ -1,0 +1,32 @@
+'''class MusicFile(object):
+    def __init__(self, path):
+        self.path = path
+    class artists(object):
+        def __init__(self, name, path = "music.txt"):
+            self.name = name
+            self.dica = {}
+            self.path = path
+        def songs(self):
+            with open(self.path, "r") as music:
+                for line in music:
+                    segment = line.split(" - ")
+                    if segment[0] == self.name:
+                        if "\n" in segment[1]:
+                            print(segment[1][0 : len(segment[1]) - 2])
+                        else:
+                            print(segment[1])
+music = MusicFile("music.txt")
+music.artists("Joy Division").songs()'''
+class Sample():
+    def __enter__(self):
+        print('in enter')
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print ("type: ", exc_type)
+        print ("val: ", exc_val)
+        print ("tb: ", exc_tb)
+    def do_something(self):
+        bar = 1 / 10
+        return bar + 10
+with Sample() as sample:
+    print(sample.do_something())

@@ -1,0 +1,32 @@
+from contextlib import ExitStack
+class AddressBook(object):
+    def __init__(self, filename):
+        self.filename = filename
+        self.dica = {}
+        with open(self.filename, "r") as file:
+            if file.readline() != "":
+                for line in file:
+                    segment = line.split()
+                    self.dica[segment[0]] = segment[1]
+    def __enter__(self):
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
+    def __getitem__(self, name):
+        return self.dica[name]
+    def add(self, name, email):
+        with open(self.filename, "a") as file:
+            file.write(name + " " + email + "\n")
+            self.dica[name] = email
+    def email(self, name):
+        with open(self.filename, "r") as file:
+            for line in file:
+                segment = line.split()
+                if name == segment[0]:
+                    return segment[1]
+with AddressBook("contacts.txt") as ab:
+    ab.add('Eve', 'eve@gmail.com')
+    ab.add('Alice', 'alice@walla.co.il')
+
+with AddressBook("contacts.txt") as ab:
+    print(ab["Eve"])
